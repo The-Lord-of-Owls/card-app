@@ -1,0 +1,17 @@
+<div>
+	<h1>Card Manager</h1>
+	<div class="cards-page-container">
+		<div class="left-side">
+			<app-add-card-form />
+		</div>
+		<div class="right-side">
+			<div class="cards-container">
+				@if( cards.length ) {
+					<app-scroll-box [cards]="cards" />
+				} @else {
+					<div>No cards available</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>

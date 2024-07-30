@@ -1,0 +1,28 @@
+.cards-page-container {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+  
+.left-side {
+	flex: 2; /* 2/5 of the width */
+	padding: 16px;
+	box-sizing: border-box;
+}
+  
+.right-side {
+	flex: 3; /* 3/5 of the width */
+	padding: 16px;
+	box-sizing: border-box;
+}
+  
+@media (max-width: 768px) {
+	/* Stack columns on top of each other on smaller screens */
+	.cards-page-container {
+		flex-direction: column;
+	}
+  
+	.left-side, .right-side {
+		flex: 1 1 100%; /* Take full width */
+	}
+}

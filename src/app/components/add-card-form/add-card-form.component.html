@@ -1,0 +1,15 @@
+<form (ngSubmit)="addCard()">
+	<label>
+		Name: <input type="text" [(ngModel)]="name" name="name" required />
+	</label>
+	<label>
+		Description: <textarea [(ngModel)]="description" name="description" cols="100" rows="5" style="overflow:auto;resize:none" required></textarea>
+	</label>
+	<label>
+		HP: <input type="number" [(ngModel)]="hp" name="hp" required />
+	</label>
+	<label>
+		MP: <input type="number" [(ngModel)]="mp" name="mp" required />
+	</label>
+	<button type="submit">Add Card</button>
+</form>
