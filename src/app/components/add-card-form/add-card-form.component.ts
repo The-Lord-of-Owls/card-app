@@ -16,24 +16,41 @@ import { addCard } from '../../state/card.actions';
 	styleUrl: './add-card-form.component.scss'
 })
 export class AddCardFormComponent {
+	private audio: HTMLAudioElement | undefined;
+
 	name: string = '';
 	description: string = '';
-	hp: number = 0;
-	mp: number = 0;
+	atk: number = 0;
+	def: number = 0;
 
-	constructor(private store: Store) { }
+	constructor(private store: Store) {
+		if ( typeof window !== 'undefined' && typeof Audio !== 'undefined' ) {
+			this.audio = new Audio();
+			this.audio.src = 'lifepoints.mp3';
+			this.audio.load();
+			this.audio.onerror = () => {
+				console.error( 'Audio source error:', this.audio?.src );
+			};
+		}
+	}
 
 	addCard() {	//Add a new card to the store
 		const newCard: Card = {
 			name: this.name,
 			description: this.description,
-			hp: this.hp,
-			mp: this.mp
+			atk: this.atk,
+			def: this.def
 		};
-		this.store.dispatch(addCard({ card: newCard }));
+		this.store.dispatch( addCard( { card: newCard } ) );
 		this.name = '';
 		this.description = '';
-		this.hp = 0;
-		this.mp = 0;
+		this.atk = 0;
+		this.def = 0;
+
+		this.audio?.play().catch( error => {
+			console.error( 'Error playing audio:', error );
+		} );
 	}
 }
+
+
