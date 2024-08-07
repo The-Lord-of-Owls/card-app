@@ -1,36 +1,37 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, ChangeDetectionStrategy } from '@angular/core'
+import { FormsModule } from '@angular/forms'
 
-import { Store } from '@ngrx/store';
+import { Store } from '@ngrx/store'
 
-import { Card } from '../../models/card.model';
-import { addCard } from '../../state/card.actions';
+import { Card } from '../../models/card.model'
+import { addCard } from '../../state/card.actions'
 
-@Component({
+@Component( {
 	selector: 'app-add-card-form',
 	standalone: true,
 	imports: [
 		FormsModule
 	],
 	templateUrl: './add-card-form.component.html',
-	styleUrl: './add-card-form.component.scss'
-})
+	styleUrl: './add-card-form.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush
+} )
 export class AddCardFormComponent {
-	private audio: HTMLAudioElement | undefined;
+	private audio: HTMLAudioElement | undefined
 
-	name: string = '';
-	description: string = '';
-	atk: number = 0;
-	def: number = 0;
+	name: string = ''
+	description: string = ''
+	atk: number = 0
+	def: number = 0
 
-	constructor(private store: Store) {
+	constructor( private store: Store ) {
 		if ( typeof window !== 'undefined' && typeof Audio !== 'undefined' ) {
-			this.audio = new Audio();
-			this.audio.src = 'lifepoints.mp3';
-			this.audio.load();
+			this.audio = new Audio()
+			this.audio.src = 'lifepoints.mp3'
+			this.audio.load()
 			this.audio.onerror = () => {
-				console.error( 'Audio source error:', this.audio?.src );
-			};
+				console.error( 'Audio source error:', this.audio?.src )
+			}
 		}
 	}
 
@@ -40,16 +41,16 @@ export class AddCardFormComponent {
 			description: this.description,
 			atk: this.atk,
 			def: this.def
-		};
-		this.store.dispatch( addCard( { card: newCard } ) );
-		this.name = '';
-		this.description = '';
-		this.atk = 0;
-		this.def = 0;
+		}
+		this.store.dispatch( addCard( { card: newCard } ) )
+		this.name = ''
+		this.description = ''
+		this.atk = 0
+		this.def = 0
 
 		this.audio?.play().catch( error => {
-			console.error( 'Error playing audio:', error );
-		} );
+			console.error( 'Error playing audio:', error )
+		} )
 	}
 }
 

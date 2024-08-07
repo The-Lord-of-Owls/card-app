@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, ChangeDetectionStrategy } from '@angular/core'
+import { RouterOutlet } from '@angular/router'
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'
 
+import { NavbarComponent } from './components/navbar/navbar.component'
 
-import { NavbarComponent } from './components/navbar/navbar.component';
-
-@Component({
+@Component( {
 	selector: 'app-root',
 	standalone: true,
 	imports: [
@@ -15,10 +14,11 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 		FormsModule
 	],
 	templateUrl: './app.component.html',
-	styleUrl: './app.component.scss'
-})
+	styleUrl: './app.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush
+} )
 export class AppComponent {
-	title = 'card-app';
+	title = 'card-app'
 }
 
 

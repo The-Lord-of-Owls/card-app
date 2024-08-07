@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core'
 
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatButtonModule } from '@angular/material/button'
+import { MatIconModule } from '@angular/material/icon'
+import { Router } from '@angular/router'
 
 
-@Component({
+@Component( {
 	selector: 'app-navbar',
 	standalone: true,
 	imports: [
@@ -15,14 +15,15 @@ import { Router } from '@angular/router';
 		MatIconModule
 	],
 	templateUrl: './navbar.component.html',
-	styleUrl: './navbar.component.scss'
-})
+	styleUrl: './navbar.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush
+} )
 export class NavbarComponent {
-	constructor(private router: Router) {}
+	constructor( private router: Router ) {}
 
 	// Method to navigate to a specific route
 	goToPage( route: string ) {
-		this.router.navigate([route]);
+		this.router.navigate( [ route ] )
 	}
 }
 

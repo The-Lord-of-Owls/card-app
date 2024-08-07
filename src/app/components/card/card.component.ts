@@ -1,15 +1,16 @@
-import { Component, Input } from '@angular/core';
-import { Card } from '../../models/card.model';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core'
+import { Card } from '../../models/card.model'
 
-@Component({
+@Component( {
 	selector: 'app-card',
 	standalone: true,
 	imports: [],
 	templateUrl: './card.component.html',
-	styleUrl: './card.component.scss'
-})
+	styleUrl: './card.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush
+} )
 export class CardComponent {
-	@Input() card!: Card;	//Specific card to display info on
+	@Input() card!: Card	//Specific card to display info on
 }
 
 
