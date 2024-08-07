@@ -9,6 +9,10 @@ export const routes: Routes = [
 	{
 		path: "cards",
 		loadComponent: () => import( './components/cards-page/cards-page.component' ).then( c => c.CardsPageComponent )
+	},
+	{
+		path: "decks",
+		loadComponent: () => import( './components/decks-page/decks-page.component' ).then( c => c.DecksPageComponent )
 	}
 ]
 

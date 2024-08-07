@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core'
+import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core'
+import { Subscription } from 'rxjs'
 
 import { DeckApiService } from '../../services/deck-api.service'
 
@@ -10,8 +11,21 @@ import { DeckApiService } from '../../services/deck-api.service'
 	styleUrl: './decks-page.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush
 } )
-export class DecksPageComponent {
+export class DecksPageComponent implements OnDestroy {
+	private subscriptions: Subscription = new Subscription()
+
 	constructor( private deckService: DeckApiService ) {}
+
+	getAllDecks( userId: string ) {
+		const sub = this.deckService.getAllDecks( userId ).subscribe( response => {
+			console.log( 'All decks:', response )
+		} )
+		this.subscriptions.add( sub )
+	}
+
+	ngOnDestroy() {
+		this.subscriptions.unsubscribe()
+	}
 }
 
 

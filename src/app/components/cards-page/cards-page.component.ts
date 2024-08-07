@@ -24,7 +24,7 @@ import { selectAllCards } from '../../state/card.selectors'
 	styleUrl: './cards-page.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush
 } )
-export class CardsPageComponent {
+export class CardsPageComponent implements OnDestroy {
 	cards: Card[] = []
 	private cardsSubscription: Subscription
 
