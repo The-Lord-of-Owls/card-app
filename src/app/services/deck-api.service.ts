@@ -72,7 +72,7 @@ export class DeckApiService {
 	}
 	
 	// Get a list of cards between a start and end value
-	getCardList( startIndex: number, endIndex: number ): Observable<any> {
+	getCardList( startIndex: number = 0, endIndex: number = 100 ): Observable<any> {
 		const params = new HttpParams()
 			params.set( 'start', startIndex.toString() )
 			params.set( 'end', endIndex.toString() )

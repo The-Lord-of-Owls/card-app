@@ -9,7 +9,9 @@ import { Store } from '@ngrx/store'
 import { Subscription } from 'rxjs'
 import { Card } from '../../models/card.model'
 import { selectAllCards } from '../../state/card.selectors'
+import { addCard } from '../../state/card.actions'
 
+import { DeckApiService } from '../../services/deck-api.service'
 
 @Component( {
 	selector: 'app-cards-page',
@@ -26,18 +28,30 @@ import { selectAllCards } from '../../state/card.selectors'
 } )
 export class CardsPageComponent implements OnDestroy {
 	cards: Card[] = []
-	private cardsSubscription: Subscription
+	private subscriptions: Subscription = new Subscription()
 
-	constructor( private store: Store<{ cards: Card[] }> ) {
-		this.cardsSubscription = this.store.select( selectAllCards ).subscribe( cards => {
+	constructor( private store: Store<{ cards: Card[] }>, private deckService: DeckApiService ) {
+		const apiSub = this.deckService.getCardList( 100, 200 ).subscribe( response => {
+			response.cards.forEach( ( card: any ) => {
+				const newCard: Card = {
+					name: card.name,
+					description: card.description,
+					atk: card.atk,
+					def: card.def
+				}
+				this.store.dispatch( addCard( { card: newCard } ) )
+			} )
+		} )
+		this.subscriptions.add( apiSub )
+
+		const storeSub = this.store.select( selectAllCards ).subscribe( cards => {
 			this.cards = cards ?? [] // Fallback to an empty array if cards is null
 		} )
+		this.subscriptions.add( storeSub )
 	}
 
 	ngOnDestroy() {	//Handles unsubscribing on destruction of the page
-		if ( this.cardsSubscription ) {
-			this.cardsSubscription.unsubscribe()
-		}
+		if ( this.subscriptions ) this.subscriptions.unsubscribe()
 	}
 }
 
