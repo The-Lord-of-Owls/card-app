@@ -37,10 +37,7 @@ export class DeckApiService {
 
 	// Get information about a specific deck
 	getDeckInfo( userId: string, deckName: string ): Observable<any> {
-		const params = new HttpParams()
-			.set( 'userId', userId )
-			.set( 'deckName', deckName )
-		return this.http.get<any>(`${ this.apiUrl }/decks/getinfo`, { params } )
+		return this.http.get<any>(`${ this.apiUrl }/decks/getinfo?userid=${ userId }&deckname=${ deckName }` )
 	}
 
 	// Set name and/or description of a deck
@@ -53,30 +50,22 @@ export class DeckApiService {
 
 	// Get a list of all decks belonging to the user
 	getAllDecks( userId: string ): Observable<any> {
-		const params = new HttpParams().set( 'userId', userId )
-		return this.http.get<any>( `${ this.apiUrl }/decks/getall`, { params } )
+		return this.http.get<any>( `${ this.apiUrl }/decks/getall?userid=${ userId }` )
 	}
 
 	// Get the image of a specific card
 	getCardImage( cardId: number ): Observable<any> {
-		const params = new HttpParams().set( 'cardid', cardId.toString() )
-		return this.http.get<any>(`${ this.apiUrl }/cards/getimage`, { params } )
+		return this.http.get<any>(`${ this.apiUrl }/cards/getimage?cardid=${ cardId }` )
 	}
 	
 	// Get information about a specific card
 	getCardInfo( cardId: number, cardIndex: number ): Observable<any> {
-		const params = new HttpParams()
-			params.set( 'cardid', cardId.toString() )
-			params.set( 'cardindex', cardIndex.toString() )
-		return this.http.get<any>( `${ this.apiUrl }/cards/getinfo`, { params } )
+		return this.http.get<any>( `${ this.apiUrl }/cards/getinfo?cardid=${ cardId }&cardindex=${ cardIndex }` )
 	}
 	
 	// Get a list of cards between a start and end value
 	getCardList( startIndex: number = 0, endIndex: number = 100 ): Observable<any> {
-		const params = new HttpParams()
-			params.set( 'start', startIndex.toString() )
-			params.set( 'end', endIndex.toString() )
-		return this.http.get<any>( `${ this.apiUrl }/cards/getlist` )
+		return this.http.get<any>( `${ this.apiUrl }/cards/getlist?start=${ startIndex }&end=${ endIndex }` )
 	}
 }
 

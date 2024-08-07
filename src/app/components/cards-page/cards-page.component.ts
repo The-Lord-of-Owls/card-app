@@ -31,11 +31,11 @@ export class CardsPageComponent implements OnDestroy {
 	private subscriptions: Subscription = new Subscription()
 
 	constructor( private store: Store<{ cards: Card[] }>, private deckService: DeckApiService ) {
-		const apiSub = this.deckService.getCardList( 100, 200 ).subscribe( response => {
+		const apiSub = this.deckService.getCardList( 0, 13293 ).subscribe( response => {
 			response.cards.forEach( ( card: any ) => {
 				const newCard: Card = {
 					name: card.name,
-					description: card.description,
+					description: card.desc,
 					atk: card.atk,
 					def: card.def
 				}

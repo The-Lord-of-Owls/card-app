@@ -1,1 +1,17 @@
-<p>decks-page works!</p>
+<div>
+	<h1>Card Manager</h1>
+	<div class="decks-page-container">
+		<div class="left-side">
+			<app-add-card-form />
+		</div>
+		<div class="right-side">
+			<div class="decks-container">
+				@if( cards.length ) {
+					<app-deck-scroll-box [decks]="decks" />
+				} @else {
+					<div>No decks available</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>
